@@ -72,3 +72,6 @@ ENV/
 # Ignore requirements lock files (if not used)
 Pipfile.lock
 poetry.lock
+
+# Embedding cache
+embeddings_cache.pkl
