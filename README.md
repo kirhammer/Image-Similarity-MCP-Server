@@ -161,6 +161,8 @@ Find images similar to /Users/username/personal/image-finder/assets/query.jpg
 
 The tool will return a list of similar images with their similarity scores.
 
+<img width="424" alt="Captura de pantalla 2025-06-25 a la(s) 9 00 23 a m" src="https://github.com/user-attachments/assets/472dc2f1-d6b4-4fd0-8864-1c29cc494ebe" />
+
 ### Using with curl (for HTTP API)
 
 ```bash
