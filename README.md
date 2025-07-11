@@ -74,16 +74,14 @@ To use this tool with an MCP client (like VS Code with the MCP extension), you n
 
 ```json
 {
-    "servers": {
-        "Image Finder": {
-            "type": "stdio",
-            "command": "/path/to/project/image-finder/.venv/bin/python",
-            "args": [
-                "/path/to/project/image-finder/mcp_server.py"
-            ],
-            "cwd": "/path/to/project/image-finder"
-        }
+  "servers": {
+    "Image Finder": {
+      "type": "stdio",
+      "command": "/path/to/project/find_similar_assets/.venv/bin/python",
+      "args": ["/path/to/project/mcp_server.py"],
+      "cwd": "/path/to/project/find_similar_assets"
     }
+  }
 }
 ```
 
