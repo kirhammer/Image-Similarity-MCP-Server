@@ -4,3 +4,4 @@ transformers
 pillow
 fastapi
 uvicorn
+fastmcp
