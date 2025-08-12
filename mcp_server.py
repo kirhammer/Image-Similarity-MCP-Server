@@ -1,7 +1,8 @@
 # mcp_server.py
 
 import sys
-from typing import List
+import json
+from typing import List, Union
 from pathlib import Path
 
 from fastmcp import FastMCP
@@ -50,16 +51,28 @@ class FindSimilarImagesOutput(BaseModel):
 • Validating that new images don't duplicate existing ones before adding them to a project
 
 **Required inputs:**
-• image_path: When an image is shared with an LLM, it can be temporarily stored to obtain this absolute path
-• assets_directory: The directory containing potential matching images to search through
-• top_k: Maximum number of similar images to return""",
+• input_data: Either a FindSimilarImagesInput object or a JSON string containing the required parameters
+  - image_path: When an image is shared with an LLM, it can be temporarily stored to obtain this absolute path
+  - assets_directory: The directory containing potential matching images to search through
+  - top_k: Maximum number of similar images to return""",
 )
-async def find_similar_images(input_data: FindSimilarImagesInput) -> FindSimilarImagesOutput:
+async def find_similar_images(input_data: Union[FindSimilarImagesInput, str]) -> FindSimilarImagesOutput:
     """Find images similar to the input image."""
+    # Handle both structured input and JSON string input
+    if isinstance(input_data, str):
+        try:
+            # Parse JSON string and create FindSimilarImagesInput object
+            json_data = json.loads(input_data)
+            parsed_input = FindSimilarImagesInput(**json_data)
+        except (json.JSONDecodeError, TypeError, ValueError) as e:
+            raise ValueError(f"Invalid JSON string provided: {e}")
+    else:
+        parsed_input = input_data
+    
     results = find_similar_assets(
-        input_data.image_path, 
-        input_data.assets_directory, 
-        input_data.top_k
+        parsed_input.image_path, 
+        parsed_input.assets_directory, 
+        parsed_input.top_k
     )
     
     return FindSimilarImagesOutput(
